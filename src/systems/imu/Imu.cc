@@ -17,6 +17,7 @@
 
 #include "Imu.hh"
 
+#include <gz/msgs/stringmsg.pb.h>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
@@ -43,6 +44,8 @@
 #include "gz/sim/components/World.hh"
 #include "gz/sim/EntityComponentManager.hh"
 #include "gz/sim/Util.hh"
+#include <gz/transport.hh>
+#include <gz/msgs.hh>
 
 using namespace gz;
 using namespace sim;
@@ -333,6 +336,16 @@ void ImuPrivate::Update(const EntityComponentManager &_ecm)
 
         return true;
       });
+
+    transport::Node node;
+
+    std::string topic{"/gazebo/jaeeun"};
+    auto startingWorldPub = node.Advertise<msgs::StringMsg>(topic);
+    msgs::StringMsg msg;
+    std::string startingWorld;
+    startingWorld = "Hello Jaeeun!!!!!";
+    msg.set_data(startingWorld);
+    startingWorldPub.Publish(msg);
 }
 
 //////////////////////////////////////////////////
