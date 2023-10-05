@@ -24,8 +24,6 @@
 #include <gz/common/VideoEncoder.hh>
 #include <gz/plugin/Register.hh>
 #include <gz/transport/Node.hh>
-#include <gz/sensors/Noise.hh>
-#include <gz/sensors/SensorFactory.hh>
 
 #include <gz/rendering/Camera.hh>
 #include <gz/rendering/RenderEngine.hh>
@@ -210,7 +208,7 @@ bool OpticalFlowPrivate::OnRecordVideo(const msgs::VideoRecord &_msg,
 
 //////////////////////////////////////////////////
 OpticalFlow::OpticalFlow()
-  : System(), dataPtr(std::make_unique<CameraVideoRecorderPrivate>())
+  : System(), dataPtr(std::make_unique<OpticalFlowPrivate>())
 {
 }
 
@@ -432,6 +430,7 @@ void OpticalFlowPrivate::OnPostRender()
 void OpticalFlow::PostUpdate(const UpdateInfo &_info,
     const EntityComponentManager &_ecm)
 {
+  gzerr << "hihihi" << std::endl;
   this->dataPtr->simTime = _info.simTime;
   if (!this->dataPtr->cameraName.empty())
     return;
@@ -455,6 +454,7 @@ void OpticalFlow::PostUpdate(const UpdateInfo &_info,
     }
     return;
   }
+  gzerr << "hihihi" << std::endl;
 
   this->dataPtr->node.Advertise(this->dataPtr->service,
        &OpticalFlowPrivate::OnRecordVideo, this->dataPtr.get());
@@ -470,8 +470,4 @@ GZ_ADD_PLUGIN(OpticalFlow,
 // Add plugin alias so that we can refer to the plugin without the version
 // namespace
 GZ_ADD_PLUGIN_ALIAS(OpticalFlow,
-                          "gz::sim::systems::OpticalFlow")
-
-// TODO(CH3): Deprecated, remove on version 8
-GZ_ADD_PLUGIN_ALIAS(OpticalFlow,
-                          "ignition::gazebo::systems::OpticalFlow")
+                          "custom::OpticalFlow")

@@ -74,7 +74,8 @@ set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 # as protobuf could be find transitively by any dependency
 set(protobuf_MODULE_COMPATIBLE TRUE)
 
-gz_find_package(sdformat13 REQUIRED)
+# gz_find_package(sdformat13 REQUIRED)
+find_package(sdformat13 PATHS /usr/local/lib/cmake)
 set(SDF_VER ${sdformat13_VERSION_MAJOR})
 
 #--------------------------------------
@@ -135,7 +136,8 @@ set(GZ_PHYSICS_VER ${gz-physics6_VERSION_MAJOR})
 
 #--------------------------------------
 # Find gz-sensors
-gz_find_package(gz-sensors7 REQUIRED VERSION 7.1
+# gz_find_package(gz-sensors7 REQUIRED VERSION 7.1
+find_package(gz-sensors7 REQUIRED PATHS /usr/local/lib/cmake
   # component order is important
   COMPONENTS
     # non-rendering
