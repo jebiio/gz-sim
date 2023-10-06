@@ -75,7 +75,12 @@ set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 set(protobuf_MODULE_COMPATIBLE TRUE)
 
 # gz_find_package(sdformat13 REQUIRED)
+<<<<<<< HEAD
 # set(SDF_VER ${sdformat13_VERSION_MAJOR})
+=======
+find_package(sdformat13 PATHS /usr/local/lib/cmake)
+set(SDF_VER ${sdformat13_VERSION_MAJOR})
+>>>>>>> 40d77ce3a65b5b5bbf927cdb124e9c34cb4a35ec
 
 find_package(sdformat13 PATHS /home/jeyong/projects/kari/sdformat/build/cmake)
 set(SDF_VER ${sdformat13_VERSION_MAJOR})
@@ -137,7 +142,12 @@ set(GZ_PHYSICS_VER ${gz-physics6_VERSION_MAJOR})
 
 #--------------------------------------
 # Find gz-sensors
+<<<<<<< HEAD
 gz_find_package(gz-sensors7 PATH /home/jeyong/projects/kari/gz-sensors/build/cmake
+=======
+# gz_find_package(gz-sensors7 REQUIRED VERSION 7.1
+find_package(gz-sensors7 REQUIRED PATHS /usr/local/lib/cmake
+>>>>>>> 40d77ce3a65b5b5bbf927cdb124e9c34cb4a35ec
   # component order is important
   COMPONENTS
     # non-rendering
