@@ -74,9 +74,11 @@ set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 # as protobuf could be find transitively by any dependency
 set(protobuf_MODULE_COMPATIBLE TRUE)
 
-gz_find_package(sdformat13 REQUIRED)
-set(SDF_VER ${sdformat13_VERSION_MAJOR})
+# gz_find_package(sdformat13 REQUIRED)
+# set(SDF_VER ${sdformat13_VERSION_MAJOR})
 
+find_package(sdformat13 PATHS /home/jeyong/projects/kari/sdformat/build/cmake)
+set(SDF_VER ${sdformat13_VERSION_MAJOR})
 #--------------------------------------
 # Find gz-plugin
 gz_find_package(gz-plugin2 REQUIRED COMPONENTS loader register)
@@ -135,7 +137,7 @@ set(GZ_PHYSICS_VER ${gz-physics6_VERSION_MAJOR})
 
 #--------------------------------------
 # Find gz-sensors
-gz_find_package(gz-sensors7 REQUIRED VERSION 7.1
+gz_find_package(gz-sensors7 PATH /home/jeyong/projects/kari/gz-sensors/build/cmake
   # component order is important
   COMPONENTS
     # non-rendering
@@ -147,6 +149,7 @@ gz_find_package(gz-sensors7 REQUIRED VERSION 7.1
     logical_camera
     magnetometer
     navsat
+    # icd
 
     # rendering
     rendering
