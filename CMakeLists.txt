@@ -75,15 +75,10 @@ set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 set(protobuf_MODULE_COMPATIBLE TRUE)
 
 # gz_find_package(sdformat13 REQUIRED)
-<<<<<<< HEAD
-# set(SDF_VER ${sdformat13_VERSION_MAJOR})
-=======
 find_package(sdformat13 PATHS /usr/local/lib/cmake)
+# find_package(sdformat13 PATHS /home/jeyong/projects/kari/sdformat/build/cmake)
 set(SDF_VER ${sdformat13_VERSION_MAJOR})
->>>>>>> 40d77ce3a65b5b5bbf927cdb124e9c34cb4a35ec
 
-find_package(sdformat13 PATHS /home/jeyong/projects/kari/sdformat/build/cmake)
-set(SDF_VER ${sdformat13_VERSION_MAJOR})
 #--------------------------------------
 # Find gz-plugin
 gz_find_package(gz-plugin2 REQUIRED COMPONENTS loader register)
