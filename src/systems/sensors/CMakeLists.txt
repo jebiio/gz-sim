@@ -1,3 +1,5 @@
+find_package(OpenCV)
+
 gz_add_system(sensors
   SOURCES
     Sensors.cc
@@ -15,4 +17,6 @@ gz_add_system(sensors
     gz-sensors${GZ_SENSORS_VER}::segmentation_camera
     gz-sensors${GZ_SENSORS_VER}::thermal_camera
     gz-sensors${GZ_SENSORS_VER}::wide_angle_camera
+    gz-sensors${GZ_SENSORS_VER}::mycamera
+    ${OpenCV_LIBS}
 )

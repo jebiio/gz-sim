@@ -137,12 +137,9 @@ set(GZ_PHYSICS_VER ${gz-physics6_VERSION_MAJOR})
 
 #--------------------------------------
 # Find gz-sensors
-<<<<<<< HEAD
-gz_find_package(gz-sensors7 PATH /home/jeyong/projects/kari/gz-sensors/build/cmake
-=======
 # gz_find_package(gz-sensors7 REQUIRED VERSION 7.1
 find_package(gz-sensors7 REQUIRED PATHS /usr/local/lib/cmake
->>>>>>> 40d77ce3a65b5b5bbf927cdb124e9c34cb4a35ec
+# find_package(gz-sensors7 PATH /home/jeyong/projects/kari/gz-sensors/build/cmake
   # component order is important
   COMPONENTS
     # non-rendering
@@ -169,6 +166,7 @@ find_package(gz-sensors7 REQUIRED PATHS /usr/local/lib/cmake
     rgbd_camera
     thermal_camera
     wide_angle_camera
+    mycamera
 )
 set(GZ_SENSORS_VER ${gz-sensors7_VERSION_MAJOR})
 

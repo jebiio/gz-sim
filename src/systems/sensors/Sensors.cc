@@ -34,6 +34,7 @@
 
 #include <gz/rendering/Scene.hh>
 #include <gz/sensors/BoundingBoxCameraSensor.hh>
+#include <gz/sensors/MyCameraSensor.hh>
 #include <gz/sensors/CameraSensor.hh>
 #include <gz/sensors/DepthCameraSensor.hh>
 #include <gz/sensors/GpuLidarSensor.hh>
@@ -42,11 +43,13 @@
 #include <gz/sensors/ThermalCameraSensor.hh>
 #include <gz/sensors/SegmentationCameraSensor.hh>
 #include <gz/sensors/WideAngleCameraSensor.hh>
+#include <gz/sensors/OpticalFlowSensor.hh>
 #include <gz/sensors/Manager.hh>
 
 #include "gz/sim/components/Atmosphere.hh"
 #include "gz/sim/components/BatterySoC.hh"
 #include "gz/sim/components/BoundingBoxCamera.hh"
+#include "gz/sim/components/MyCamera.hh"
 #include "gz/sim/components/Camera.hh"
 #include "gz/sim/components/DepthCamera.hh"
 #include "gz/sim/components/GpuLidar.hh"
@@ -58,6 +61,7 @@
 #include "gz/sim/components/ThermalCamera.hh"
 #include "gz/sim/components/WideAngleCamera.hh"
 #include "gz/sim/components/World.hh"
+#include "gz/sim/components/OpticalFlow.hh"
 #include "gz/sim/Events.hh"
 #include "gz/sim/EntityComponentManager.hh"
 
@@ -623,6 +627,7 @@ void Sensors::Update(const UpdateInfo &_info,
        _ecm.HasComponentType(components::RgbdCamera::typeId) ||
        _ecm.HasComponentType(components::ThermalCamera::typeId) ||
        _ecm.HasComponentType(components::SegmentationCamera::typeId) ||
+       _ecm.HasComponentType(components::MyCamera::typeId) ||
        _ecm.HasComponentType(components::WideAngleCamera::typeId)))
   {
     std::unique_lock<std::mutex> lock(this->dataPtr->renderMutex);
@@ -649,6 +654,7 @@ void Sensors::PostUpdate(const UpdateInfo &_info,
          _ecm.HasComponentType(components::BoundingBoxCamera::typeId) ||
          _ecm.HasComponentType(components::Camera::typeId) ||
          _ecm.HasComponentType(components::DepthCamera::typeId) ||
+         _ecm.HasComponentType(components::MyCamera::typeId) ||
          _ecm.HasComponentType(components::GpuLidar::typeId) ||
          _ecm.HasComponentType(components::RgbdCamera::typeId) ||
          _ecm.HasComponentType(components::ThermalCamera::typeId) ||
@@ -814,6 +820,12 @@ std::string Sensors::CreateSensor(const Entity &_entity,
   {
     sensor = this->dataPtr->sensorManager.CreateSensor<
       sensors::DepthCameraSensor>(_sdf);
+  }
+    else if (_sdf.Type() == sdf::SensorType::CUSTOM)
+  {
+    gzerr << "Custom sensor!!!" << std::endl;
+    sensor = this->dataPtr->sensorManager.CreateSensor<
+      sensors::MyCameraSensor>(_sdf);
   }
   else if (_sdf.Type() == sdf::SensorType::GPU_LIDAR)
   {
